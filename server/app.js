@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 app.get('/search', async (req, res) => {
   const keyword = req.query.q
   const recruits = await recruit.getRecruit(keyword)
-  
+
   res.status(200).send(recruits)
 })
 
