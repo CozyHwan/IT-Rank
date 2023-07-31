@@ -1,5 +1,5 @@
-import * as cheerio from 'cheerio';
-import fetch from "node-fetch";
+const cheerio = require('cheerio');
+const fetch = require('node-fetch')
 
 const getHTML = async (keyword) => {
     try {
@@ -41,4 +41,4 @@ const getRecruit = async (keyword) => {
     return recruit;
 }
 
-getRecruit('Node.js')
+module.exports.getRecruit = getRecruit;
