@@ -1,2 +1,3 @@
 # IT-Rank
-Created with CodeSandbox
+
+중소/중견 회사 추천 사이트
