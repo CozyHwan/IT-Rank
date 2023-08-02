@@ -4,7 +4,9 @@ const fetch = require('node-fetch')
 const getHTML = async (keyword) => {
   try {
     const response = await fetch(
-      `https://www.saramin.co.kr/zf_user/search/recruit?search_area=main&search_done=y&search_optional_item=n&searchType=search&searchword=${keyword}
+      `https://www.saramin.co.kr/zf_user/search/recruit?search_area=main&search_done=y&search_optional_item=n&searchType=search&searchword=${encodeURI(
+        keyword,
+      )}
             &recruitPage=1&recruitSort=relation&recruitPageCount=40&inner_com_type=&company_cd=0%2C1%2C2%2C3%2C4%2C5%2C6%2C7%2C9%2C10&show_applied=&quick_apply=&except_read=&ai_head_hunting=`,
     )
     return await response.text()
@@ -58,8 +60,21 @@ const parsing = async (page) => {
 const getRecruit = async (keyword) => {
   const html = await getHTML(keyword)
   const recruit = await parsing(html)
-  console.log(JSON.stringify(recruit))
   return recruit
 }
 
-module.exports.getRecruit = getRecruit
+const getFullRecruit = async (keyword) => {
+  let recruits = []
+  let i = 1
+  while (i <= 5) {
+    const recruit = await getRecruit(
+      `${keyword}&recruitPage=${i}&recruitSort=relation&recruitPageCount=40&inner_com_type=&company_cd=0%2C1%2C2%2C3%2C4%2C5%2C6%2C7%2C9%2C10&show_applied=&quick_apply=&except_read=&ai_head_hunting=`,
+    )
+    recruits = recruits.concat(recruit)
+    i++
+  }
+
+  return recruits
+}
+
+module.exports.getFullRecruit = getFullRecruit
