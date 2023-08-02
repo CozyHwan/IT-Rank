@@ -65,13 +65,14 @@ const getRecruit = async (keyword) => {
 
 const getFullRecruit = async (keyword) => {
   let recruits = []
-  let i = 1
-  while (i <= 5) {
+  let page = 1
+  let pageCount = 100
+  while (page <= 10) {
     const recruit = await getRecruit(
-      `${keyword}&recruitPage=${i}&recruitSort=relation&recruitPageCount=40&inner_com_type=&company_cd=0%2C1%2C2%2C3%2C4%2C5%2C6%2C7%2C9%2C10&show_applied=&quick_apply=&except_read=&ai_head_hunting=`,
+      `${keyword}&recruitPage=${page}&recruitSort=relation&recruitPageCount=${pageCount}&inner_com_type=&company_cd=0%2C1%2C2%2C3%2C4%2C5%2C6%2C7%2C9%2C10&show_applied=&quick_apply=&except_read=&ai_head_hunting=`,
     )
     recruits = recruits.concat(recruit)
-    i++
+    page++
   }
 
   return recruits
