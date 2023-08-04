@@ -7,10 +7,6 @@ const workbook = xlsx.readFile('../xlsx/data.xlsx')
 const ws = workbook.Sheets.시트1
 const records = xlsx.utils.sheet_to_json(ws)
 
-for (const [i, r] of records.entries()) {
-  // console.log(i,r.csn)
-}
-
 const crawler = async () => {
   try {
     await Promise.all(
